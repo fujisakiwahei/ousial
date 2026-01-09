@@ -1,115 +1,115 @@
-## 仮デザイン
-https://cleave-drink-69363453.figma.site
+# 社会科学系ウェブメディア：技術設計・実装ドキュメント
 
-## 仕様書
-================================================================================
-1. プロジェクト概要
-================================================================================
-ダークモードを基調とし、紫をアクセントカラーとした没頭型の社会科学系ウェブメディア。
-読書体験を最優先し、余計な装飾を削ぎ落としたミニマルかつモダンなデザインを採用しています。
+ご提示いただいたデザインコンセプトおよび要件に基づき、Nuxt 3 × MicroCMS を活用したモダンで没頭感のあるメディアサイトの実装プランをまとめました。
 
-[デザインコンセプト]
-- ベースカラー: 黒 (#000000)
-- アクセント: 紫 (#A855F7等)
-- フォント:
-  - 本文/UI: Noto Serif JP (極細ウェイト中心)
-  - 見出し: Shippori Mincho
-  - 装飾/英語見出し: Cinzel Decorative
-- レイアウト: ファーストビュー重視、縦書きティッカー（デスクトップのみ）、グリッドレイアウト
+---
 
-================================================================================
-2. 機能一覧
-================================================================================
-[フロントエンド機能]
-- 記事一覧表示: カテゴリフィルタリング機能付き
-- 特集記事 (Featured Post): トップページ最上部に大きく表示
-- 縦書きティッカー: 画面右端に最新記事タイトルを縦書きでスクロール表示 (PCのみ)
-- レスポンシブ対応:
-  - モバイル用ドロワーメニュー (CSS/State管理で独自実装)
-  - モバイル最適化されたレイアウト (ティッカー非表示、パディング調整)
-- アニメーション: CSS Transitions / Keyframes によるスクロール出現、ホバーエフェクト
+## 1. 開発環境・技術スタック
+- **Framework**: Nuxt 3 (SSR/SSG併用)
+- **Language**: TypeScript
+- **CSS**: Tailwind CSS (JITモード)
+- **CMS**: MicroCMS (Headless CMS)
+- **Deployment**: Vercel
 
-[開発要件]
-- フレームワーク: Nuxt 3
-- 言語: TypeScript
-- スタイリング: Tailwind CSS
-- UIコンポーネント: なし (Tailwind CSSによる独自実装)
-- アイコン: なし (CSSシェイプまたはSVG直書き、文字で代用)
-- アニメーション: 標準CSS / Nuxt Transitions (外部ライブラリ不使用)
+---
 
-================================================================================
-3. バックエンド連携 (MicroCMS)
-================================================================================
-MicroCMSとの連携を推奨します。
+## 2. 実装のハイライト
 
-[推奨データスキーマ (MicroCMS)]
+### デザインの実装 (Tailwind & CSS Custom)
+「没頭型」を実現するため、フォントの細部までこだわります。
 
-A. API: posts (リスト形式)
--------------------------------------------------------
-フィールドID | 表示名   | 種類           | 必須 | 備考
--------------------------------------------------------
-title        | タイトル | テキスト       | 必須 |
-category     | カテゴリ | セレクト/文字列| 必須 | Politics, Economics等
-date         | 公開日   | 日時           | 必須 | "YYYY.MM.DD"形式で使用
-image        | サムネイル| 画像          | 必須 | 4:3比率推奨
-excerpt      | 抜粋     | テキストエリア | 任意 | 一覧表示用
-content      | 本文     | リッチエディタ | 必須 |
--------------------------------------------------------
+```typescript
+// tailwind.config.ts の設定例
+export default {
+  theme: {
+    extend: {
+      colors: {
+        background: '#000000',
+        accent: '#A855F7',
+      },
+      fontFamily: {
+        serif: ['"Noto Serif JP"', 'serif'],
+        heading: ['"Shippori Mincho"', 'serif'],
+        decorative: ['"Cinzel Decorative"', 'cursive'],
+      },
+    },
+  },
+}
+```
 
-B. API: categories (リスト形式)
--------------------------------------------------------
-フィールドID | 表示名   | 種類           | 必須
--------------------------------------------------------
-name         | カテゴリ名| テキスト       | 必須
-slug         | スラッグ | テキスト       | 必須
--------------------------------------------------------
+### 縦書きティッカー (VerticalTicker.vue)
+デスクトップ専用の縦書きスクロールは、CSSの `writing-mode` を利用して実装します。
 
-[連携手順概略 (Nuxt)]
-1. MicroCMSで上記APIを作成
-2. Nuxtプロジェクトで `nuxt-microcms-module` を利用するか、`microcms-js-sdk` を利用
-   コマンド: npx nuxi@latest module add microcms
-3. `nuxt.config.ts` に設定を追加
-4. データ取得処理の実装 (`useFetch` や `useAsyncData` を使用)
+```vue
+<template>
+  <aside class="hidden lg:block fixed right-4 top-0 h-full w-12 border-l border-white/10 z-50">
+    <div class="writing-vertical-rl animate-scroll text-accent font-serif tracking-widest py-8">
+      {{ latestPostTitle }} — Latest Update
+    </div>
+  </aside>
+</template>
 
-================================================================================
-4. デプロイ (Vercel)
-================================================================================
+<style scoped>
+.writing-vertical-rl {
+  writing-mode: vertical-rl;
+}
+@keyframes scroll {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+</style>
+```
 
-[設定手順]
-1. Vercelダッシュボードで新規プロジェクト作成
-2. GitHubリポジトリを連携
-3. Framework Presetは通常自動で "Nuxt.js" が選択される
-4. 環境変数設定
-   - MICROCMS_SERVICE_DOMAIN
-   - MICROCMS_API_KEY
-5. Deploy
+---
 
-================================================================================
-5. ファイル構成イメージ (Nuxt)
-================================================================================
-/
-  /components
-    FeaturedPost.vue   # トップページ大画面記事
-    TheHeader.vue      # ナビゲーション (PC/Mobile)
-    PostList.vue       # 記事一覧グリッド
-    VerticalTicker.vue # 右端縦書きスクロール
-  /layouts
-    default.vue        # ベースレイアウト
-  /pages
-    index.vue          # トップページ
-    [category].vue     # カテゴリ別一覧ページ (必要であれば)
-    post
-      [id].vue         # 記事詳細ページ
-  /server              # サーバーサイド処理 (必要であれば)
-  /assets
-    /css
-      tailwind.css     # Tailwindエントリー
-  app.vue              # エントリーポイント
-  nuxt.config.ts       # Nuxt設定
+## 3. MicroCMS 連携フロー
 
-================================================================================
-6. 今後の懸念点・TODO
-================================================================================
-- SEO対策: Nuxtの `useSeoMeta` や `useHead` を活用してメタタグを適切に設定してください。
-- パフォーマンス: 記事数が増加した際の `v-for` レンダリングや、画像最適化 (`@nuxt/image` の導入検討) に注意してください。
-- アニメーション: CSSのみで実装するため、複雑なシーケンスアニメーションが必要な場合はCSS Keyframesの管理が煩雑になる可能性があります。
+
+
+### 1. APIクライアントの設定
+`nuxt-microcms-module` を導入し、環境変数を設定します。
+
+### 2. データ取得 (Pages/index.vue)
+`useMicroCMSGetList` を用いて、トップページに必要な記事一覧を取得します。
+
+```typescript
+// pages/index.vue
+const { data: posts } = await useMicroCMSGetList({
+  endpoint: "posts",
+  queries: { limit: 10, orders: "-date" },
+});
+```
+
+---
+
+## 4. コンポーネント構成案
+
+| コンポーネント名 | 役割 |
+| :--- | :--- |
+| `FeaturedPost` | 画面いっぱいに広がるメインビジュアルと、大きな Cinzel Decorative の見出し。 |
+| `PostList` | 記事を整然と並べるグリッド。ホバー時に紫のボーダーが発光するエフェクトを付与。 |
+| `TheHeader` | 最小限のリンク。スクロールで背景が透過するデザイン。 |
+| `MobileDrawer` | ハンバーガーメニュー。`v-if` と CSS Transition で滑らかに開閉。 |
+
+---
+
+## 5. デプロイと運用フロー
+
+1. **GitHub Push**: コードを変更してリポジトリに反映。
+2. **Vercel Build**: 自動検知してビルド開始。環境変数が注入される。
+3. **Webhook連携**: MicroCMSで記事を更新した際、Vercelの再ビルドを走らせる設定を推奨。
+
+---
+
+## 6. 次のステップ
+
+この設計書に基づき、まずは以下の作業を進めることを提案します。
+
+- **モックアップ構築**: Tailwind CSS を用いて `FeaturedPost` のレイアウトを確認。
+- **MicroCMS 枠組み作成**: 推奨データスキーマに従い API 構造を定義。
+
+これらの工程のうち、まずは **MicroCMSのAPI設定の詳細** または **Tailwindの詳細な設定コード** のどちらを具体化しましょうか？
+```
