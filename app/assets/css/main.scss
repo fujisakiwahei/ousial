@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* サイト全体のデフォルトフォントを設定 */
+body {
+  font-family: "Noto Serif JP", serif;
+}
+
+.button {
+  border-radius: 50vh;
+  transition: all 0.5s ease-in-out;
+  background: white;
+  color: #7e2ece;
+  border-color: #7e2ece;
+  font-weight: bold;
+}
+
+.button:hover {
+  transition: all 0.3s ease;
+  background: #7e2ece;
+  color: white;
+}
+
+.postListItem {
+  transition: all 0.5s ease-in-out;
+
+  p img {
+    transition: all 0.5s ease-in-out;
+  }
+
+  h3 {
+    transition: all 0.5s ease-in-out;
+  }
+
+  &:hover {
+    p img {
+      filter: grayscale(0);
+      transform: scale(1.05);
+    }
+
+    h3 {
+      color: #7e2ece;
+    }
+  }
+}

@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import type { Post } from "../../../types/post";
-const { data: FeaturedPost } = await useMicroCMSGetList<Post>({
-  endpoint: "posts",
-  queries: { limit: 1, orders: "-publishedAt", filters: "is_featured[equals]true" },
-});
 
 const route = useRoute();
-const LIMIT = 2;
+const LIMIT = 12;
 
 // URLパラメータの 'id' を取得（なければ1ページ目とする）
 const currentPage = computed(() => {
@@ -35,13 +31,13 @@ const { data: Posts } = await useMicroCMSGetList<Post>({
     <h2 class="font-decorative text-[7vw] leading-none text-white">Recent Articles</h2>
     <div class="separator my-8 h-[0.5px] w-full bg-white opacity-10"></div>
     <div class="flex flex-wrap gap-x-[40px] gap-y-[64px]">
-      <NuxtLink v-for="post in Posts?.contents" :key="post.id" :to="`/posts/${post.slug}`" class="h-full w-[calc(50%-20px)]">
+      <NuxtLink v-for="post in Posts?.contents" :key="post.id" :to="`/posts/${post.slug}`" class="postListItem h-full w-[calc(50%-20px)]">
         <p class="aspect-video w-full overflow-hidden">
           <img :src="post.thumbnail?.url" :alt="post.title" class="size-full object-cover grayscale" />
         </p>
         <div class="mt-6 flex items-center gap-4">
-          <p class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 py-1 font-decorative text-fuchsia-500 opacity-80">
-            {{ post.categories[0].category_name }}
+          <p v-for="category in post.categories" :key="category.id" class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 py-1 leading-none font-decorative text-white opacity-80">
+            {{ category.category_name }}
           </p>
           <time :datetime="post.publishedAt" class="text-white opacity-80">
             {{ formatDate(post.publishedAt) }}
