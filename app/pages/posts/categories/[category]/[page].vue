@@ -12,9 +12,6 @@ const currentPage = computed(() => {
   return isNaN(page) || page < 1 ? 1 : page;
 });
 
-console.log(categorySlug.value);
-console.log(currentPage.value);
-
 const { data: Posts } = await useMicroCMSGetList<Post>({
   endpoint: "posts",
   queries: {
