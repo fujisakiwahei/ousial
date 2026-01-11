@@ -9,8 +9,10 @@ export default defineNuxtConfig({
   // 環境変数をクライアント側（ブラウザ）でも使えるように設定
   runtimeConfig: {
     public: {
-      microcmsServiceDomain: process.env.NUXT_PUBLIC_MICROCMS_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN,
-      microcmsApiKey: process.env.NUXT_PUBLIC_MICROCMS_API_KEY || process.env.MICROCMS_API_KEY,
+      microCMS: {
+        serviceDomain: process.env.NUXT_PUBLIC_MICROCMS_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN,
+        apiKey: process.env.NUXT_PUBLIC_MICROCMS_API_KEY || process.env.MICROCMS_API_KEY,
+      },
     },
   },
 
