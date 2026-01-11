@@ -2,18 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* サイト全体のデフォルトフォントを設定 */
+// サイト全体のデフォルトフォントを設定
 body {
   font-family: "Noto Serif JP", serif;
 }
 
+// 以下個別設定
 .button {
   border-radius: 50vh;
   transition: all 0.5s ease-in-out;
   background: white;
   color: #7e2ece;
-  border-color: #7e2ece;
   font-weight: bold;
+  border: none;
 }
 
 .button:hover {
@@ -33,6 +34,10 @@ body {
     transition: all 0.5s ease-in-out;
   }
 
+  p {
+    transition: all 0.5s ease-in-out;
+  }
+
   &:hover {
     p img {
       filter: grayscale(0);
@@ -40,7 +45,85 @@ body {
     }
 
     h3 {
+      color: #dbb6ff;
+    }
+
+    p {
+      color: #dbb6ff;
+    }
+  }
+}
+
+.pagination {
+  .is-active {
+    pointer-events: none;
+    cursor: default;
+    color: #dbb6ff;
+  }
+
+  .pageNumber a {
+    transition: all 0.5s ease-in-out;
+    &:hover {
+      color: #dbb6ff;
+    }
+  }
+
+  .prev a,
+  .next a {
+    transition: all 0.5s ease-in-out;
+    &:hover {
+      background-color: white;
       color: #7e2ece;
+    }
+  }
+}
+
+// 無限スクロールアニメーション
+.infinite-scroll-wrapper {
+  animation: infinite-scroll 120s linear infinite;
+}
+
+@keyframes infinite-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.infinite-scroll-wrapper:hover {
+  animation-play-state: paused;
+}
+
+// ヘッダーナビゲーション
+header nav ul li a {
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    color: #dbb6ff;
+  }
+}
+
+// 著者情報（記事個別ページ）
+.authorInfo {
+  p {
+    transition: all 0.5s ease-in-out;
+    color: white;
+  }
+  &:hover {
+    p {
+      color: #dbb6ff;
+      opacity: 0.8;
+    }
+  }
+}
+
+// aside
+aside {
+  a {
+    transition: all 0.5s ease-in-out;
+    &:hover {
+      color: #dbb6ff;
     }
   }
 }

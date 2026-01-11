@@ -1,3 +1,5 @@
+import type { MicroCMSImage } from "./common";
+
 export interface Author {
   id: string;
   author_name: string;

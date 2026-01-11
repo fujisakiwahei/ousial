@@ -10,11 +10,19 @@ const { data: Post } = await useMicroCMSGetList<Post>({
 
 <template>
   <div v-if="Post?.contents[0]" class="bg-neutral-950">
-    <div class="w-full px-8 py-20 max-w-5xl mx-auto text-white">
+    <div class="w-full tablet:px-8 px-5 tablet:py-20 py-12 max-w-5xl mx-auto text-white">
       <p class="aspect-video w-full overflow-hidden">
-        <img :src="Post.contents[0].thumbnail?.url" width="1920" height="1080" :alt="Post.contents[0].title" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+        <img :src="`${Post.contents[0].thumbnail?.url}`" width="1920" height="1080" :alt="Post.contents[0].title" class="w-full h-full object-cover" loading="lazy" decoding="async" />
       </p>
-      <div class="flex items-center gap-4 mt-8">
+      <NuxtLink :to="`/posts/authors/${author.author_slug}/1`" v-for="author in Post.contents[0].authors" :key="author.id" class="authorInfo mt-8 flex items-center gap-2">
+        <p class="w-8 h-8 bg-purple-700 rounded-full overflow-hidden border-[0.5px] border-white">
+          <img :src="`${author.author_image?.url}`" width="32" height="32" :alt="`${author.author_name}のアイコン`" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+        </p>
+        <p class="text-white opacity-80 text-sm tracking-widest">
+          {{ author.author_name }}
+        </p>
+      </NuxtLink>
+      <div class="flex items-center gap-4 mt-4">
         <span v-for="category in Post.contents[0]?.categories" :key="category.id" class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 py-1 leading-none font-decorative text-white opacity-80">
           {{ category.category_name }}
         </span>
@@ -34,7 +42,7 @@ const { data: Post } = await useMicroCMSGetList<Post>({
 .post-content {
   :deep(h2) {
     position: relative;
-    margin-top: 120px;
+    margin-top: 80px;
     width: fit-content;
     display: flex;
     align-items: center;
@@ -43,26 +51,27 @@ const { data: Post } = await useMicroCMSGetList<Post>({
     color: #7e2ece;
     background: white;
     font-family: "Shippori Mincho", serif;
-    font-size: clamp(18px, 1.8vw, 28px);
+    font-size: clamp(20px, 1.8vw, 28px);
 
     &::before {
       position: absolute;
-      left: -0.6vw;
-      top: -1.2vw;
+      left: clamp(-20px, -0.6vw, -6px);
+      top: clamp(-20px, -1.2vw, -11px);
       line-height: 1;
       content: "#";
       display: inline-block;
       color: #7e2ece;
-      font-size: 2vw;
+      font-size: clamp(20px, 2vw, 40px);
       font-family: "Shippori Mincho", serif;
     }
   }
   :deep(h3) {
     display: flex;
     font-family: "Shippori Mincho", serif;
+    color: #dbb6ff;
     align-items: center;
-    margin-top: 28px;
-    font-size: 1.4vw;
+    margin-top: 32px;
+    font-size: clamp(20px, 1.4vw, 40px);
     line-height: 2;
   }
   :deep(p) {
@@ -74,7 +83,7 @@ const { data: Post } = await useMicroCMSGetList<Post>({
   :deep(blockquote) {
     margin-top: 20px;
     padding: 20px;
-    border: #a2a2a2 1px solid;
+    border: #a2a2a2 0.5px solid;
     background: #525252;
     border-radius: 24px 0 0 0;
     color: white;
@@ -98,7 +107,7 @@ const { data: Post } = await useMicroCMSGetList<Post>({
   :deep(ul) {
     margin-top: 20px;
     padding: 20px;
-    border: #7e2ece 1px solid;
+    border: #7e2ece 0.5px solid;
     color: white;
     display: flex;
     flex-direction: column;
@@ -124,7 +133,7 @@ const { data: Post } = await useMicroCMSGetList<Post>({
   :deep(ol) {
     margin-top: 20px;
     padding: 20px;
-    border: #7e2ece 1px solid;
+    border: #7e2ece 0.5px solid;
     color: white;
     display: flex;
     flex-direction: column;
@@ -147,7 +156,7 @@ const { data: Post } = await useMicroCMSGetList<Post>({
     font-size: 20px;
   }
   :deep(a) {
-    color: #7e2ece;
+    color: #dbb6ff;
     text-decoration: underline;
     text-underline-offset: 4px;
     &:hover {

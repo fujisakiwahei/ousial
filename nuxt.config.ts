@@ -3,13 +3,12 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   future: { compatibilityVersion: 4 },
-  modules: ["nuxt-microcms-module", "@nuxtjs/tailwindcss", "@nuxt/image", "@nuxtjs/sitemap", "@nuxtjs/robots"],
+  modules: ["nuxt-microcms-module", "@nuxtjs/tailwindcss", "@nuxt/image", "@nuxtjs/sitemap", "@nuxtjs/robots", "@nuxtjs/seo"],
   css: ["~/assets/css/main.scss"],
   microCMS: {
     serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
     apiKey: process.env.MICROCMS_API_KEY,
   },
-  site: { url: "https://example.com" }, // サイトマップ用
 
   app: {
     head: {
@@ -20,5 +19,12 @@ export default defineNuxtConfig({
         },
       ],
     },
+  },
+
+  site: {
+    url: "https://ousial.vercel.app/",
+    name: "Ousial | 社会と技術・SNSとの付き合い方をゆっくり考えるメディア",
+    description: "社会と技術・SNSとの付き合い方をゆっくり考えるメディア",
+    defaultLocale: "ja",
   },
 });

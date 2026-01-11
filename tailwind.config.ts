@@ -3,6 +3,12 @@ import type { Config } from "tailwindcss";
 export default <Partial<Config>>{
   theme: {
     extend: {
+      screens: {
+        // カスタムブレイクポイント 768px
+        tablet: "768px",
+        // カスタムブレイクポイント 1080px
+        desktop: "1080px",
+      },
       backgroundImage: {
         "black-gradient": "url('~/assets/images/black-gradient.svg')",
       },
