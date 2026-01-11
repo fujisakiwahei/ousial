@@ -6,19 +6,25 @@ export default defineNuxtConfig({
   modules: ["nuxt-microcms-module", "@nuxtjs/tailwindcss", "@nuxt/image", "@nuxtjs/sitemap", "@nuxtjs/robots", "@nuxtjs/seo"],
   css: ["~/assets/css/main.scss"],
 
-  // 環境変数をクライアント側（ブラウザ）でも使えるように設定
   runtimeConfig: {
+    // サーバー側でのみ利用可能な値
+    microCMS: {
+      serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
+      apiKey: process.env.MICROCMS_API_KEY,
+    },
+    // クライアント側（ブラウザ）でも利用可能な値
     public: {
       microCMS: {
-        serviceDomain: process.env.NUXT_PUBLIC_MICROCMS_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN,
-        apiKey: process.env.NUXT_PUBLIC_MICROCMS_API_KEY || process.env.MICROCMS_API_KEY,
+        serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
+        apiKey: process.env.MICROCMS_API_KEY,
       },
     },
   },
 
+  // 2. モジュール側の設定をruntimeConfigを参照するように変更
   microCMS: {
-    serviceDomain: process.env.NUXT_PUBLIC_MICROCMS_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN,
-    apiKey: process.env.NUXT_PUBLIC_MICROCMS_API_KEY || process.env.MICROCMS_API_KEY,
+    serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
+    apiKey: process.env.MICROCMS_API_KEY,
   },
 
   app: {
