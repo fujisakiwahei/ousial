@@ -6,20 +6,9 @@ export default defineNuxtConfig({
   modules: ["nuxt-microcms-module", "@nuxtjs/tailwindcss", "@nuxt/image", "@nuxtjs/sitemap", "@nuxtjs/robots", "@nuxtjs/seo"],
   css: ["~/assets/css/main.scss"],
 
-  // クライアント側でも確実に参照できるように直接記述します
-  runtimeConfig: {
-    public: {
-      microcms: {
-        serviceDomain: "ousial",
-        apiKey: "JyQvmtMTTUFkdLeWGX3LjFV472jhrx5QV7O9",
-      },
-    },
-  },
-
-  // モジュール側の設定も runtimeConfig を参照するようにしておくとスマートです
   microCMS: {
-    serviceDomain: "ousial",
-    apiKey: "JyQvmtMTTUFkdLeWGX3LjFV472jhrx5QV7O9",
+    serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
+    apiKey: process.env.MICROCMS_API_KEY, // ここがVercelの環境変数を読み込みます
   },
 
   app: {
