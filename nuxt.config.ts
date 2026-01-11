@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   // クライアント側でも確実に参照できるように直接記述します
   runtimeConfig: {
     public: {
-      microCMS: {
+      microcms: {
         serviceDomain: "ousial",
         apiKey: "JyQvmtMTTUFkdLeWGX3LjFV472jhrx5QV7O9",
       },
