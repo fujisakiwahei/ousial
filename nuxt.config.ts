@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   microCMS: {
     serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
     apiKey: process.env.MICROCMS_API_KEY, // ここがVercelの環境変数を読み込みます
+    target: "server",
   },
 
   app: {
