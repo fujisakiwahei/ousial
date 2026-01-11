@@ -6,6 +6,15 @@ const { data: Post } = await useMicroCMSGetList<Post>({
   endpoint: "posts",
   queries: { filters: `slug[equals]${route.params.id}` },
 });
+
+useSeoMeta({
+  title: () => Post.value?.contents[0]?.title,
+  ogTitle: () => Post.value?.contents[0]?.title,
+  description: () => Post.value?.contents[0]?.lead_text,
+  ogDescription: () => Post.value?.contents[0]?.lead_text,
+  ogImage: () => Post.value?.contents[0]?.thumbnail?.url,
+  twitterCard: "summary_large_image",
+});
 </script>
 
 <template>
