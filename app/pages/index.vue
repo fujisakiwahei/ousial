@@ -6,7 +6,6 @@ const { data: FeaturedPost } = await useMicroCMSGetList<Post>({
 });
 
 const route = useRoute();
-const LIMIT = 12;
 
 // URLパラメータの 'id' を取得（なければ1ページ目とする）
 const currentPage = computed(() => {
@@ -16,14 +15,14 @@ const currentPage = computed(() => {
 
 const totalPages = computed(() => {
   const total = Posts.value?.totalCount;
-  return total && total > 0 ? Math.ceil(total / LIMIT) : 0;
+  return total && total > 0 ? Math.ceil(total / POSTS_LIMIT) : 0;
 });
 
 const { data: Posts } = await useMicroCMSGetList<Post>({
   endpoint: "posts",
   queries: {
-    limit: LIMIT,
-    offset: (currentPage.value - 1) * LIMIT,
+    limit: POSTS_LIMIT,
+    offset: (currentPage.value - 1) * POSTS_LIMIT,
     orders: "-publishedAt",
   },
 });
