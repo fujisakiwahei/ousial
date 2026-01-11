@@ -5,6 +5,15 @@ export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
   modules: ["nuxt-microcms-module", "@nuxtjs/tailwindcss", "@nuxt/image", "@nuxtjs/sitemap", "@nuxtjs/robots", "@nuxtjs/seo"],
   css: ["~/assets/css/main.scss"],
+
+  // 環境変数をクライアント側（ブラウザ）でも使えるように設定
+  runtimeConfig: {
+    public: {
+      MICROCMS_SERVICE_DOMAIN: process.env.MICROCMS_SERVICE_DOMAIN,
+      MICROCMS_API_KEY: process.env.MICROCMS_API_KEY,
+    },
+  },
+
   microCMS: {
     serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
     apiKey: process.env.MICROCMS_API_KEY,
