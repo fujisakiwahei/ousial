@@ -10,16 +10,16 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       microCMS: {
-        serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
-        apiKey: process.env.MICROCMS_API_KEY,
+        serviceDomain: "ousial",
+        apiKey: "JyQvmtMTTUFkdLeWGX3LjFV472jhrx5QV7O9",
       },
     },
   },
 
   // モジュール側の設定も runtimeConfig を参照するようにしておくとスマートです
   microCMS: {
-    serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
-    apiKey: process.env.MICROCMS_API_KEY,
+    serviceDomain: "ousial",
+    apiKey: "JyQvmtMTTUFkdLeWGX3LjFV472jhrx5QV7O9",
   },
 
   app: {
