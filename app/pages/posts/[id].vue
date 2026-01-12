@@ -104,7 +104,7 @@ useSeoMeta({
   }
 
   :deep(figure) {
-    margin-top: 40px;
+    margin-top: 20px;
     width: 100%;
     img {
       width: 100%;
