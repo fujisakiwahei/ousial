@@ -32,7 +32,7 @@ const props = defineProps<{
             </time>
           </div>
           <h3 class="mt-2 font-heading tablet:text-[2.4vw] text-[20px] text-white">{{ post.title }}</h3>
-          <p class="mt-3 font-serif leading-loose text-white opacity-70 text-sm tablet:text-base">{{ post.lead_text }}</p>
+          <p class="mt-3 font-serif leading-loose text-white opacity-70 text-sm">{{ post.lead_text }}</p>
           <div v-for="author in post.authors" :key="author.id" class="mt-4 flex items-center gap-2">
             <p class="w-8 h-8 bg-purple-700 rounded-full overflow-hidden border-[0.5px] border-white">
               <img :src="`${author.author_image?.url}`" width="32" height="32" :alt="`${author.author_name}のアイコン`" class="w-full h-full object-cover" loading="lazy" decoding="async" />

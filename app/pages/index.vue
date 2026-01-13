@@ -41,7 +41,7 @@ const { data: Posts } = await useMicroCMSGetList<Post>({
         </time>
       </div>
       <h2 class="tablet:w-4/5 font-heading text-[22px] tablet:text-[4vw] mt-2 tablet:mt-0 text-white">{{ FeaturedPost?.contents[0]?.title }}</h2>
-      <p class="mt-4 tablet:w-3/5 font-serif text-sm tablet:text-lg leading-loose text-white opacity-80">{{ FeaturedPost?.contents[0]?.lead_text }}</p>
+      <p class="mt-4 tablet:w-3/5 font-serif text-sm tablet:text-base tablet:leading-loose leading-loose text-white opacity-80">{{ FeaturedPost?.contents[0]?.lead_text }}</p>
       <NuxtLink :to="`/posts/${FeaturedPost?.contents[0]?.slug}`" class="button tablet:mt-8 mt-4 flex w-fit items-center border-[0.5px] border-white px-6 py-4 font-decorative text-white">この記事を読む →</NuxtLink>
     </div>
   </section>
