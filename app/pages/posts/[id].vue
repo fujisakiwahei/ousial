@@ -32,7 +32,7 @@ useSeoMeta({
         </p>
       </NuxtLink>
       <div class="flex items-center gap-4 mt-4">
-        <span v-for="category in Post.contents[0]?.categories" :key="category.id" class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 py-1 leading-none font-decorative text-white opacity-80">
+        <span v-for="category in Post.contents[0]?.categories" :key="category.id" class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 pt-[6px] pb-1 leading-none font-decorative text-white opacity-80">
           {{ category.category_name }}
         </span>
         <time :datetime="Post.contents[0]?.publishedAt" class="text-white opacity-80">

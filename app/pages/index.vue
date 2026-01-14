@@ -33,7 +33,7 @@ const { data: Posts } = await useMicroCMSGetList<Post>({
   <section class="bg-cover bg-center bg-no-repeat h-[calc(100vh-80px)] desktop:h-[80vh]" :style="{ backgroundImage: `url(${FeaturedPost?.contents[0]?.thumbnail?.url})` }">
     <div class="wrapper relative flex h-full flex-col justify-end bg-black-gradient bg-cover bg-center desktop:pb-16 desktop:pl-16 tablet:px-12 tablet:pb-24 tablet:pl-12 px-5 pb-20">
       <div class="flex items-center gap-4">
-        <span v-for="category in FeaturedPost?.contents[0]?.categories" :key="category.id" class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 py-1 leading-none font-decorative text-white opacity-80">
+        <span v-for="category in FeaturedPost?.contents[0]?.categories" :key="category.id" class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 pt-[6px] pb-1 leading-none font-decorative text-white opacity-80">
           {{ category.category_name }}
         </span>
         <time :datetime="FeaturedPost?.contents[0]?.publishedAt" class="text-white opacity-80 text-sm tablet:text-base">

@@ -24,7 +24,7 @@ const props = defineProps<{
             <img :src="post.thumbnail?.url" :alt="post.title" width="1920" height="1080" loading="lazy" decoding="async" class="size-full object-cover grayscale" />
           </p>
           <div class="mt-6 flex items-center gap-4">
-            <span v-for="category in post.categories" :key="category.id" class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 py-1 leading-none font-decorative text-white opacity-80">
+            <span v-for="category in post.categories" :key="category.id" class="flex items-center justify-center border border-purple-700 bg-purple-100 bg-opacity-10 px-2 pt-[6px] pb-1 leading-none font-decorative text-white opacity-80">
               {{ category.category_name }}
             </span>
             <time :datetime="post.publishedAt" class="text-white opacity-80 text-sm tablet:text-base">
